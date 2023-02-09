@@ -6,10 +6,11 @@
   text-align: center;
 }
 
-.csvInput {
+.CsvInput {
   display: flex;
   background-color: #5f687b;
   border-color: #20232a;
+  border-radius: 1rem;
   border-style: solid;
   height: 25rem;
   width: 20rem;
@@ -18,9 +19,17 @@
   margin-right: auto;
 }
 
-.csvInput textarea{
+.CsvInput textarea{
   background-color: transparent;
   color: #c6cbd3;
   resize: none;
+  border-radius: 1rem;
   width: 100%;
+}
+
+.Convert2Json {
+  background-color: #c6cbd3;
+  color: #20232a;
+  border-radius: 1rem;
+  margin-top: 1rem;
 }

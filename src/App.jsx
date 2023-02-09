@@ -1,11 +1,63 @@
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [csvText, setCsvText] = useState('');
+
+  const handleChange = (event) => {
+    const text = event.target.value
+    setCsvText(text);
+  }
+
+  const validateCsv = (csvSplited) => {
+    var lenght = 0;
+    
+    csvSplited.forEach(() => {
+      lenght += 1;
+      if(lenght > 1) return
+    })
+
+    return lenght > 1;
+  }
+
+  const csv2json = () => {
+    const splitN = csvText.split("\n");
+
+    console.log(splitN)
+    var isValid = validateCsv(splitN)
+
+    if(!isValid){
+      alert.show(<div style={{ color: 'blue'}}>Some Message</div>)
+    }
+
+    const jsonArray = [];
+
+    const keysString = splitN[0];
+    const keys = keysString.split(',');
+
+    const valuesStrings = splitN.slice(1);
+
+    valuesStrings.forEach((valuesString) => {
+      const values = valuesString.split(',');
+
+      var obj = {}
+      values.forEach((value, index)=>{
+        obj[keys[index]] = value
+      });
+      
+      jsonArray.push(obj)
+
+    });
+
+    console.log(jsonArray)
+  }
+
   return (
     <div className="App">
-      <div className='csvInput'>
-        <textarea name="csvInput" id="csvInput"></textarea>
+      <div className='CsvInput'>
+        <textarea name="csvInput" id="csvInput" onChange={handleChange}></textarea>
       </div>
+      <button className='Convert2Json' onClick={csv2json}>Converter para JSON</button>
     </div>
   );
 }
