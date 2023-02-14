@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import {Alert} from '@mui/material';
-import customStyle from './customAlert/alertStyle';
+import AlertComponent from './components/AlertComponent';
+
 
 function App() {
   const [csvText, setCsvText] = useState('');
@@ -56,7 +56,7 @@ function App() {
     console.log(jsonArray)
   }
 
-  var alertDiv = showAlert ? <div className='Alert'><Alert style={customStyle} severity="error">Não valido</Alert></div> : null
+  var alertDiv = showAlert ? <AlertComponent/> : null
 
   return (
     <div className="App">

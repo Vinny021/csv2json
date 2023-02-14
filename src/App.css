@@ -6,16 +6,6 @@ body {
   text-align: center;
 }
 
-.Alert {
-  position: absolute;
-  margin-top: -2rem;
-  width: 20%;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-}
-
 .CsvInput {
   display: flex;
   background-color: #5f687b;
