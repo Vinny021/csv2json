@@ -1,9 +1,19 @@
-* {
+body {
   background-color: #282c34;
 }
 
 .App {
   text-align: center;
+}
+
+.Alert {
+  position: absolute;
+  margin-top: -2rem;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }
 
 .CsvInput {

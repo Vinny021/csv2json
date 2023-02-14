@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import './App.css';
+import {Alert} from '@mui/material';
+import customStyle from './customAlert/alertStyle';
 
 function App() {
   const [csvText, setCsvText] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleChange = (event) => {
     const text = event.target.value
@@ -27,7 +30,8 @@ function App() {
     var isValid = validateCsv(splitN)
 
     if(!isValid){
-      alert.show(<div style={{ color: 'blue'}}>Some Message</div>)
+      setShowAlert(true)
+      setTimeout(() => setShowAlert(false), 1500);      
     }
 
     const jsonArray = [];
@@ -52,12 +56,15 @@ function App() {
     console.log(jsonArray)
   }
 
+  var alertDiv = showAlert ? <div className='Alert'><Alert style={customStyle} severity="error">Não valido</Alert></div> : null
+
   return (
     <div className="App">
+      {alertDiv}
       <div className='CsvInput'>
         <textarea name="csvInput" id="csvInput" onChange={handleChange}></textarea>
       </div>
-      <button className='Convert2Json' onClick={csv2json}>Converter para JSON</button>
+      <button id="success-btn" className='Convert2Json' onClick={csv2json}>Converter para JSON</button>
     </div>
   );
 }
