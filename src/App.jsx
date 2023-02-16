@@ -63,6 +63,72 @@ function App() {
     setJsonText(JSON.stringify(jsonArray));
   }
 
+  const validateJson = () => {
+    try {
+      const json = JSON.parse(jsonText)
+      return json
+    } catch (error) {
+      return false;
+    }
+  }
+
+  const json2csv = () => {
+    const json = validateJson();
+    
+    if(!json){
+      setShowAlert(true)
+      setTimeout(() => setShowAlert(false), 1500); 
+      return
+    }
+
+    //Pegando as keys(headers)
+    var keys = [];
+    var csvString = '';
+    
+    if(json.length === undefined){
+      Object.keys(json).forEach((key) => {
+        //Povoando as keys
+        if (!keys.includes(key)) keys.push(key);
+      })
+
+      //Montando Header
+      keys.forEach((key) => {
+        csvString += key+','
+      })
+      csvString = csvString.replace(/.$/,"\n");
+      
+      //Montando values
+      keys.forEach((key) => {
+        csvString += json[key]+','
+      })
+      csvString = csvString.replace(/.$/,"\n");
+    }
+    else{
+      json.forEach((element) => {
+        Object.keys(element).forEach((key) => {
+          //Povoando as keys
+          if (!keys.includes(key)) keys.push(key);
+        })
+      });
+
+      //Montando Header
+      keys.forEach((key) => {
+        csvString += key+','
+      })
+      csvString = csvString.replace(/.$/,"\n");
+
+      json.forEach((element) => {
+        //Montando values
+        keys.forEach((key) => {
+          csvString += element[key]+','
+        })
+        csvString = csvString.replace(/.$/,"\n");
+      })
+    }
+
+    setCsvText(csvString)
+  }
+
   const changeFocusConverted = (event) => {
     const className = event.target.className;
 
@@ -87,6 +153,9 @@ function App() {
   <textarea name="jsonField" id="jsonField" onChange={handleJsonChange}></textarea> :
   <textarea name="jsonField" id="jsonField" value={jsonText}></textarea>;
 
+  var buttonText = csvTitle === 'CsvSelected' ? 'Converter para JSON' : 'Converter para CSV';
+  var buttonAction = csvTitle === 'CsvSelected' ? csv2json : json2csv;
+
   return (
     <div className="App">
       {alertDiv}
@@ -100,7 +169,7 @@ function App() {
           {jsonTextArea}
         </div>
       </div>
-      <button id="success-btn" className='Convert2Json' onClick={csv2json}>Converter para JSON</button>
+      <button id="success-btn" className='ConvertButton' onClick={buttonAction}>{buttonText}</button>
     </div>
   );
 }
