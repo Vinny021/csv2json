@@ -17,9 +17,34 @@ body {
 }
 
 .CsvInput h1 {
-  color: #c6cbd3;
   margin-top: 0rem;
   margin-bottom: 0.5rem;
+}
+
+.CsvSelected {
+  cursor: pointer;
+  color: #c6cbd3;
+  text-decoration: none;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #516ca6;
+}
+
+.CsvUnselected {
+  cursor: pointer;
+  color: #c6cbd3;
+  text-decoration: none;
+}
+
+.CsvInput textarea{
+  background-color: #5f687b;
+  border-color: #20232a;
+  border-radius: 1rem;
+  border-style: solid;
+  border-width: 3px;
+  height: 25rem;
+  width: 20rem;
+  color: #c6cbd3;
+  resize: none;
 }
 
 .JsonOutput {
@@ -34,16 +59,18 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.CsvInput textarea{
-  background-color: #5f687b;
-  border-color: #20232a;
-  border-radius: 1rem;
-  border-style: solid;
-  border-width: 3px;
-  height: 25rem;
-  width: 20rem;
+.JsonSelected {
+  cursor: pointer;
   color: #c6cbd3;
-  resize: none;
+  text-decoration: none;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #516ca6;
+}
+
+.JsonUnselected {
+  cursor: pointer;
+  color: #c6cbd3;
+  text-decoration: none;
 }
 
 .JsonOutput textarea{
