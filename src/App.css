@@ -6,6 +6,10 @@ body {
   text-align: center;
 }
 
+.CsvJsonFields {
+  display: flex;
+}
+
 .CsvInput {
   display: flex;
   background-color: #5f687b;
@@ -16,10 +20,31 @@ body {
   width: 20rem;
   margin-top: 5rem;
   margin-left: auto;
+  margin-right: 1rem;
+}
+
+.JsonOutput {
+  display: flex;
+  background-color: #5f687b;
+  border-color: #20232a;
+  border-radius: 1rem;
+  border-style: solid;
+  height: 25rem;
+  width: 20rem;
+  margin-top: 5rem;
+  margin-left: 1rem;
   margin-right: auto;
 }
 
 .CsvInput textarea{
+  background-color: transparent;
+  color: #c6cbd3;
+  resize: none;
+  border-radius: 1rem;
+  width: 100%;
+}
+
+.JsonOutput textarea{
   background-color: transparent;
   color: #c6cbd3;
   resize: none;

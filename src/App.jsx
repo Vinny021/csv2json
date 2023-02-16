@@ -5,6 +5,7 @@ import AlertComponent from './components/AlertComponent';
 
 function App() {
   const [csvText, setCsvText] = useState('');
+  const [jsonText, setJsonText] = useState('');
   const [showAlert, setShowAlert] = useState(false);
 
   const handleChange = (event) => {
@@ -26,7 +27,6 @@ function App() {
   const csv2json = () => {
     const splitN = csvText.split("\n");
 
-    console.log(splitN)
     var isValid = validateCsv(splitN)
 
     if(!isValid){
@@ -53,7 +53,7 @@ function App() {
 
     });
 
-    console.log(jsonArray)
+    setJsonText(JSON.stringify(jsonArray));
   }
 
   var alertDiv = showAlert ? <AlertComponent/> : null
@@ -61,8 +61,13 @@ function App() {
   return (
     <div className="App">
       {alertDiv}
-      <div className='CsvInput'>
-        <textarea name="csvInput" id="csvInput" onChange={handleChange}></textarea>
+      <div className='CsvJsonFields'>
+        <div className='CsvInput'>
+          <textarea name="csvInput" id="csvInput" onChange={handleChange}></textarea>
+        </div>
+        <div className='JsonOutput'>
+          <textarea name="jsonOutput" id="jsonOutput" value={jsonText}></textarea>
+        </div>
       </div>
       <button id="success-btn" className='Convert2Json' onClick={csv2json}>Converter para JSON</button>
     </div>
