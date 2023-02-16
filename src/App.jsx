@@ -63,9 +63,11 @@ function App() {
       {alertDiv}
       <div className='CsvJsonFields'>
         <div className='CsvInput'>
+          <h1 className='CsvTitle'>CSV</h1>
           <textarea name="csvInput" id="csvInput" onChange={handleChange}></textarea>
         </div>
         <div className='JsonOutput'>
+          <h1 className='JsonTitle'>JSON</h1>
           <textarea name="jsonOutput" id="jsonOutput" value={jsonText}></textarea>
         </div>
       </div>
