@@ -80,22 +80,22 @@ function App() {
   var alertDiv = showAlert ? <AlertComponent/> : null
 
   var csvTextArea = csvTitle === 'CsvSelected' ? 
-  <textarea name="csvInput" id="csvInput" onChange={handleCsvChange}></textarea> :
-  <textarea name="csvInput" id="csvInput" value={csvText}></textarea>;
+  <textarea name="csvField" id="csvField" onChange={handleCsvChange}></textarea> :
+  <textarea name="csvField" id="csvField" value={csvText}></textarea>;
   
   var jsonTextArea = jsonTitle === 'JsonSelected' ? 
-  <textarea name="jsonOutput" id="jsonOutput" onChange={handleJsonChange}></textarea> :
-  <textarea name="jsonOutput" id="jsonOutput" value={jsonText}></textarea>;
+  <textarea name="jsonField" id="jsonField" onChange={handleJsonChange}></textarea> :
+  <textarea name="jsonField" id="jsonField" value={jsonText}></textarea>;
 
   return (
     <div className="App">
       {alertDiv}
       <div className='CsvJsonFields'>
-        <div className='CsvInput'>
+        <div className='CsvField'>
           <h1 onClick={changeFocusConverted} className={csvTitle}>CSV</h1>
           {csvTextArea}
         </div>
-        <div className='JsonOutput'>
+        <div className='jsonField'>
           <h1 onClick={changeFocusConverted} className={jsonTitle}>JSON</h1>
           {jsonTextArea}
         </div>

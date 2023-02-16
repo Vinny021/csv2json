@@ -10,13 +10,13 @@ body {
   display: flex;
 }
 
-.CsvInput {
+.CsvField {
   margin-top: 3rem;
   margin-left: auto;
   margin-right: 1rem;
 }
 
-.CsvInput h1 {
+.CsvField h1 {
   margin-top: 0rem;
   margin-bottom: 0.5rem;
 }
@@ -35,7 +35,7 @@ body {
   text-decoration: none;
 }
 
-.CsvInput textarea{
+.CsvField textarea{
   background-color: #5f687b;
   border-color: #20232a;
   border-radius: 1rem;
@@ -47,13 +47,13 @@ body {
   resize: none;
 }
 
-.JsonOutput {
+.jsonField {
   margin-top: 3rem;
   margin-left: 1rem;
   margin-right: auto;
 }
 
-.JsonOutput h1 {
+.jsonField h1 {
   color: #c6cbd3;
   margin-top: 0rem;
   margin-bottom: 0.5rem;
@@ -73,7 +73,7 @@ body {
   text-decoration: none;
 }
 
-.JsonOutput textarea{
+.jsonField textarea{
   background-color: #5f687b;
   border-color: #20232a;
   border-radius: 1rem;
