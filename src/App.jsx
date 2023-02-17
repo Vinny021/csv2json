@@ -1,5 +1,7 @@
+import { click } from '@testing-library/user-event/dist/click';
 import { useState } from 'react';
 import './App.css';
+import React from 'react';
 import AlertComponent from './components/AlertComponent';
 
 
@@ -18,6 +20,20 @@ function App() {
   const handleJsonChange = (event) => {
     const text = event.target.value
     setJsonText(text);
+  }
+
+  const changeFocusConverted = (event) => {
+    const className = event.target.className;
+    console.log(className)
+    if(className === 'CsvUnselected'){
+      setCsvTitle('CsvSelected');
+      setJsonTitle('JsonUnselected');
+    }
+
+    if(className === 'JsonUnselected'){
+      setCsvTitle('CsvUnselected');
+      setJsonTitle('JsonSelected');
+    }
   }
 
   const validateCsv = (csvSplited) => {
@@ -125,22 +141,22 @@ function App() {
         csvString = csvString.replace(/.$/,"\n");
       })
     }
-
+    csvString = csvString.replace(/\n$/,"");
     setCsvText(csvString)
   }
 
-  const changeFocusConverted = (event) => {
-    const className = event.target.className;
+  const clearAction = () => {
+    setCsvText('');
+    setJsonText('');
 
-    if(className === 'CsvUnselected'){
+    setCsvTitle('CsvUnselected');
+    setJsonTitle('JsonSelected');
+
+    setTimeout(()=>{
       setCsvTitle('CsvSelected');
       setJsonTitle('JsonUnselected');
-    }
-
-    if(className === 'JsonUnselected'){
-      setCsvTitle('CsvUnselected');
-      setJsonTitle('JsonSelected');
-    }
+    },0)
+  
   }
 
   var alertDiv = showAlert ? <AlertComponent/> : null
@@ -154,7 +170,7 @@ function App() {
   <textarea name="jsonField" id="jsonField" value={jsonText}></textarea>;
 
   var buttonText = csvTitle === 'CsvSelected' ? 'Converter para JSON' : 'Converter para CSV';
-  var buttonAction = csvTitle === 'CsvSelected' ? csv2json : json2csv;
+  var convertAction = csvTitle === 'CsvSelected' ? csv2json : json2csv;
 
   return (
     <div className="App">
@@ -165,11 +181,18 @@ function App() {
           {csvTextArea}
         </div>
         <div className='jsonField'>
-          <h1 onClick={changeFocusConverted} className={jsonTitle}>JSON</h1>
+          <h1 id='jsonTitle' onClick={changeFocusConverted} className={jsonTitle}>JSON</h1>
           {jsonTextArea}
         </div>
       </div>
-      <button id="success-btn" className='ConvertButton' onClick={buttonAction}>{buttonText}</button>
+      <div className='ButtonsSections'>
+        <div className='ButtonDivLeft'>
+          <button className='ConvertButton' onClick={convertAction}>{buttonText}</button>
+        </div>
+        <div className='ButtonDivRight'>
+          <button className='ClearButton' onClick={clearAction}>Limpar campos</button>
+        </div>
+      </div>
     </div>
   );
 }
