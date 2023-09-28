@@ -169,6 +169,7 @@ function App() {
   <textarea name="jsonField" id="jsonField" value={jsonText}></textarea>;
 
   var buttonText = csvTitle === 'CsvSelected' ? 'Converter para JSON' : 'Converter para CSV';
+  var importButtonText = csvTitle === 'CsvSelected' ? 'Importar CSV' : 'Importar JSON';
   var convertAction = csvTitle === 'CsvSelected' ? csv2json : json2csv;
 
   return (
@@ -191,6 +192,10 @@ function App() {
         <div className='ButtonDivRight'>
           <button className='ClearButton' onClick={clearAction}>Limpar campos</button>
         </div>
+      </div>
+      <div className='ButtonsSections'>
+          <input type="file" className='InputFile' id='fileIntput'/>
+          <button className='ActionButton'>{importButtonText}</button>
       </div>
     </div>
   );
