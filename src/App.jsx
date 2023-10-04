@@ -7,7 +7,7 @@ import AlertComponent from './components/AlertComponent';
 function App() {
   const [csvText, setCsvText] = useState('');
   const [jsonText, setJsonText] = useState('');
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState([false, 'Não valido']);
   const [csvTitle, setCsvTitle] = useState('CsvSelected');
   const [jsonTitle, setJsonTitle] = useState('JsonUnselected');
 
@@ -52,8 +52,8 @@ function App() {
     var isValid = validateCsv(splitN)
 
     if(!isValid){
-      setShowAlert(true)
-      setTimeout(() => setShowAlert(false), 1500);      
+      setShowAlert([true, 'Não valido'])
+      setTimeout(() => setShowAlert([false,  'Não valido']), 1500);      
     }
 
     const jsonArray = [];
@@ -91,8 +91,8 @@ function App() {
     const json = validateJson();
     
     if(!json){
-      setShowAlert(true)
-      setTimeout(() => setShowAlert(false), 1500); 
+      setShowAlert([true, 'Não valido'])
+      setTimeout(() => setShowAlert([false,  'Não valido']), 1500);  
       return
     }
 
@@ -183,10 +183,12 @@ function App() {
       }
     }else{
       console.log('No File');
+      setShowAlert([true, 'Arquivo não encontrado']);
+      setTimeout(() => setShowAlert(false), 1500); 
     }
   }
 
-  var alertDiv = showAlert ? <AlertComponent/> : null
+  var alertDiv = showAlert[0] ? <AlertComponent errorMessage={showAlert[1]}/> : null
 
   var csvTextArea = csvTitle === 'CsvSelected' ? 
   <textarea name="csvField" id="csvField" onChange={handleCsvChange} value={csvText}></textarea> :
