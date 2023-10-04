@@ -10,6 +10,7 @@ function App() {
   const [showAlert, setShowAlert] = useState([false, 'Não valido']);
   const [csvTitle, setCsvTitle] = useState('CsvSelected');
   const [jsonTitle, setJsonTitle] = useState('JsonUnselected');
+  const [fileName, setFileName] = useState('');
 
   const handleCsvChange = (event) => {
     const text = event.target.value
@@ -173,6 +174,7 @@ function App() {
           let fileContentSplited = fileContent.split('\n');
 
           setCsvText(fileContent)
+          setFileName(file.name)
           console.log(fileContentSplited[0]);
         };
 
@@ -188,6 +190,29 @@ function App() {
     }
   }
 
+  const saveFileContent = () => {
+    const fileIntput = document.getElementById("fileInput");
+    const file = fileIntput.files[0];
+
+    if(file){
+        try {
+          const blob = new Blob([csvText], { type: 'text/csv' });
+
+          const url = window.URL.createObjectURL(blob);
+
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = fileName;
+          a.click();
+
+          window.URL.revokeObjectURL(url);
+        } catch (error) {
+          console.log('Saving File Error:');
+          console.log(error);
+        }
+    }
+  }
+
   var alertDiv = showAlert[0] ? <AlertComponent errorMessage={showAlert[1]}/> : null
 
   var csvTextArea = csvTitle === 'CsvSelected' ? 
@@ -200,6 +225,7 @@ function App() {
 
   var buttonText = csvTitle === 'CsvSelected' ? 'Converter para JSON' : 'Converter para CSV';
   var importButtonText = csvTitle === 'CsvSelected' ? 'Importar CSV' : 'Importar JSON';
+  var saveButtonText = csvTitle === 'CsvSelected' ? 'Salvar alterações CSV' : 'Salvar alterações JSON';
   var convertAction = csvTitle === 'CsvSelected' ? csv2json : json2csv;
 
   return (
@@ -226,6 +252,7 @@ function App() {
       <div className='ButtonsSections'>
           <input id="fileInput" type="file" className='InputFile'/>
           <button className='ActionButton' onClick={importFileContent}>{importButtonText}</button>
+          <button className='ActionButton' style={{marginLeft:'10px'}} onClick={saveFileContent}>{saveButtonText}</button>
       </div>
     </div>
   );
