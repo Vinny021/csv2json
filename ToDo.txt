@@ -11,7 +11,7 @@ Stories already implemented in JSON2CSV
 Bonus features
  X - User can enter the path to the CSV file on the local file system in a text box
  X - User can click a 'Open CSV' button to load file containing the CSV into the text box
- User can see a warning message if the CSV file is not found
+ X - User can see a warning message if the CSV file is not found
  User can click a 'Save CSV' button to save the CSV file to the file entered in the same text box used for opening the CSV file
  User can see a warning message if the CSV text box is empty or if the save operation failed.
  User can enter the path to the JSON file on the local file system in a text box
