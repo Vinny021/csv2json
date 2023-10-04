@@ -158,10 +158,38 @@ function App() {
   
   }
 
+  const importFileContent = (event) => {
+    const fileIntput = document.getElementById("fileInput");
+    const file = fileIntput.files[0];
+
+    if(file){
+      try {
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          const fileContent = e.target.result;
+
+          let fileContentSplited = fileContent.split('\n');
+
+          setCsvText(fileContent)
+          console.log(fileContentSplited[0]);
+        };
+
+        reader.readAsText(file);
+      } catch (error) {
+        console.log('Reading FIle Error:');
+        console.log(error);
+      }
+    }else{
+      console.log('No File');
+    }
+  }
+
   var alertDiv = showAlert ? <AlertComponent/> : null
 
   var csvTextArea = csvTitle === 'CsvSelected' ? 
-  <textarea name="csvField" id="csvField" onChange={handleCsvChange}></textarea> :
+  <textarea name="csvField" id="csvField" onChange={handleCsvChange} value={csvText}></textarea> :
   <textarea name="csvField" id="csvField" value={csvText}></textarea>;
   
   var jsonTextArea = jsonTitle === 'JsonSelected' ? 
@@ -194,8 +222,8 @@ function App() {
         </div>
       </div>
       <div className='ButtonsSections'>
-          <input type="file" className='InputFile' id='fileIntput'/>
-          <button className='ActionButton'>{importButtonText}</button>
+          <input id="fileInput" type="file" className='InputFile'/>
+          <button className='ActionButton' onClick={importFileContent}>{importButtonText}</button>
       </div>
     </div>
   );
