@@ -191,26 +191,28 @@ function App() {
   }
 
   const saveFileContent = () => {
-    const fileIntput = document.getElementById("fileInput");
-    const file = fileIntput.files[0];
-
-    if(file){
-        try {
-          const blob = new Blob([csvText], { type: 'text/csv' });
-
-          const url = window.URL.createObjectURL(blob);
-
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = fileName;
-          a.click();
-
-          window.URL.revokeObjectURL(url);
-        } catch (error) {
-          console.log('Saving File Error:');
-          console.log(error);
+    try {
+        if (!validateCsv(csvText.split("\n"))) {
+          setShowAlert([true, 'Sem conteúdo CSV']);
+          setTimeout(() => setShowAlert(false), 1500);
+          return;
         }
-    }
+
+        const blob = new Blob([csvText], { type: 'text/csv' });
+
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.click();
+
+        window.URL.revokeObjectURL(url);      
+    } catch (error) {
+      console.log(error);
+      setShowAlert([true, 'Erro ao salvar arquivo']);
+      setTimeout(() => setShowAlert(false), 1500); 
+    }    
   }
 
   var alertDiv = showAlert[0] ? <AlertComponent errorMessage={showAlert[1]}/> : null
