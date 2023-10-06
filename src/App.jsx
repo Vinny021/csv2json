@@ -252,7 +252,7 @@ function App() {
         </div>
       </div>
       <div className='ButtonsSections'>
-          <input id="fileInput" type="file" className='InputFile'/>
+          <input id="fileInput" type="file" className='InputFile' accept=".csv"/>
           <button className='ActionButton' onClick={importFileContent}>{importButtonText}</button>
           <button className='ActionButton' style={{marginLeft:'10px'}} onClick={saveFileContent}>{saveButtonText}</button>
       </div>
