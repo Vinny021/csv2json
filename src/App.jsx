@@ -10,7 +10,8 @@ function App() {
   const [showAlert, setShowAlert] = useState([false, 'Não valido']);
   const [csvTitle, setCsvTitle] = useState('CsvSelected');
   const [jsonTitle, setJsonTitle] = useState('JsonUnselected');
-  const [fileName, setFileName] = useState('');
+  const [csvFileName, setCsvFileName] = useState('');
+  const [jsonFileName, setJsonFileName] = useState('');
 
   const handleCsvChange = (event) => {
     const text = event.target.value
@@ -159,8 +160,8 @@ function App() {
   
   }
 
-  const importFileContent = (event) => {
-    const fileIntput = document.getElementById("fileInput");
+  const importCsvFile = (event) => {
+    const fileIntput = document.getElementById("csvFileInput");
     const file = fileIntput.files[0];
 
     if(file){
@@ -174,7 +175,7 @@ function App() {
           let fileContentSplited = fileContent.split('\n');
 
           setCsvText(fileContent)
-          setFileName(file.name)
+          setCsvFileName(file.name)
           console.log(fileContentSplited[0]);
         };
 
@@ -189,8 +190,37 @@ function App() {
       setTimeout(() => setShowAlert(false), 1500); 
     }
   }
+  
+  const importJsonFile = (event) => {
+    const fileIntput = document.getElementById("jsonFileInput");
+    const file = fileIntput.files[0];
 
-  const saveFileContent = () => {
+    if(file){
+      try {
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          const fileContent = e.target.result;
+          
+          setJsonText(fileContent);
+          setJsonFileName(file.name);
+        };
+
+        reader.readAsText(file);
+      } catch (error) {
+        console.log('No File');
+        setShowAlert([true, 'Arquivo não encontrado']);
+        setTimeout(() => setShowAlert(false), 1500);
+      }
+    }else{
+      console.log('No File');
+      setShowAlert([true, 'Arquivo não encontrado']);
+      setTimeout(() => setShowAlert(false), 1500); 
+    }
+  }
+
+  const saveCsvContent = () => {
     try {
         if (!validateCsv(csvText.split("\n"))) {
           setShowAlert([true, 'Sem conteúdo CSV']);
@@ -204,7 +234,7 @@ function App() {
 
         const a = document.createElement('a');
         a.href = url;
-        a.download = fileName;
+        a.download = csvFileName;
         a.click();
 
         window.URL.revokeObjectURL(url);      
@@ -226,8 +256,6 @@ function App() {
   <textarea name="jsonField" id="jsonField" value={jsonText}></textarea>;
 
   var buttonText = csvTitle === 'CsvSelected' ? 'Converter para JSON' : 'Converter para CSV';
-  var importButtonText = csvTitle === 'CsvSelected' ? 'Importar CSV' : 'Importar JSON';
-  var saveButtonText = csvTitle === 'CsvSelected' ? 'Salvar alterações CSV' : 'Salvar alterações JSON';
   var convertAction = csvTitle === 'CsvSelected' ? csv2json : json2csv;
 
   return (
@@ -252,9 +280,14 @@ function App() {
         </div>
       </div>
       <div className='ButtonsSections'>
-          <input id="fileInput" type="file" className='InputFile' accept=".csv"/>
-          <button className='ActionButton' onClick={importFileContent}>{importButtonText}</button>
-          <button className='ActionButton' style={{marginLeft:'10px'}} onClick={saveFileContent}>{saveButtonText}</button>
+          <input id="csvFileInput" type="file" className='InputFile' accept=".csv"/>
+          <button className='ActionButton' onClick={importCsvFile}>Importar CSV</button>
+          <button className='ActionButton' style={{marginLeft:'10px'}} onClick={saveCsvContent}>Salvar em CSV</button>
+      </div>
+      <div className='ButtonsSections'>
+          <input id="jsonFileInput" type="file" className='InputFile' accept=".json"/>
+          <button className='ActionButton' onClick={importJsonFile}>Importar JSON</button>
+          {/* <button className='ActionButton' style={{marginLeft:'10px'}} onClick={saveCsvContent}>Salvar em JSON</button> */}
       </div>
     </div>
   );
