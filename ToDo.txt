@@ -17,5 +17,5 @@ Bonus features
  X - User can enter the path to the JSON file on the local file system in a text box
  X - User can click a 'Open JSON' button to load file containing the JSON into the text box
  X - User can see a warning message if the JSON file is not found
- User can click a 'Save JSON' button to save the JSON file to the file entered in the same text box used for opening the JSON file
- User can see a warning message if the JSON text box is empty or if the save operation failed
+ X - User can click a 'Save JSON' button to save the JSON file to the file entered in the same text box used for opening the JSON file
+ X - User can see a warning message if the JSON text box is empty or if the save operation failed

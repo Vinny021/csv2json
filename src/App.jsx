@@ -244,6 +244,31 @@ function App() {
       setTimeout(() => setShowAlert(false), 1500); 
     }    
   }
+  
+  const saveJsonContent = () => {
+    try {
+        if (!validateJson()) {
+          setShowAlert([true, 'Sem conteúdo Json']);
+          setTimeout(() => setShowAlert(false), 1500);
+          return;
+        }
+
+        const blob = new Blob([jsonText], { type: 'text/json' });
+
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = jsonFileName;
+        a.click();
+
+        window.URL.revokeObjectURL(url);      
+    } catch (error) {
+      console.log(error);
+      setShowAlert([true, 'Erro ao salvar arquivo']);
+      setTimeout(() => setShowAlert(false), 1500); 
+    }    
+  }
 
   var alertDiv = showAlert[0] ? <AlertComponent errorMessage={showAlert[1]}/> : null
 
@@ -287,7 +312,7 @@ function App() {
       <div className='ButtonsSections'>
           <input id="jsonFileInput" type="file" className='InputFile' accept=".json"/>
           <button className='ActionButton' onClick={importJsonFile}>Importar JSON</button>
-          {/* <button className='ActionButton' style={{marginLeft:'10px'}} onClick={saveCsvContent}>Salvar em JSON</button> */}
+          <button className='ActionButton' style={{marginLeft:'10px'}} onClick={saveJsonContent}>Salvar em JSON</button>
       </div>
     </div>
   );
